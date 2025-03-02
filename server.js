@@ -77,9 +77,11 @@ app.put('/markUnComplete', (request, response) => {
     .catch(error => console.error(error))
 
 })
-
+//we use the express method .delete to initiate a delete request/response using the /deleteItem URL
 app.delete('/deleteItem', (request, response) => {
+//go into the database called todo and the collection called todos. Delete one document filtering by the this key property of 'thing' from the form body.
     db.collection('todos').deleteOne({thing: request.body.itemFromJS})
+//once this action is completed consolo log a confimration of deletion and responds with a promise with the results of the body text as json. 
     .then(result => {
         console.log('Todo Deleted')
         response.json('Todo Deleted')

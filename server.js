@@ -6,7 +6,7 @@ const app = express()
 const MongoClient = require('mongodb').MongoClient
 //hard coded port variable ther server can use to run the application
 const PORT = 2121
-//configure the .env file 
+//configure our ability to use the .env file 
 require('dotenv').config()
 
 //create a db variable, create and assign a variable storing the mongo db connection string in the .env file, create and assin a database name to the db in mongo db
@@ -50,7 +50,7 @@ app.post('/addTodo', (request, response) => { //begin an http create method with
 })
 
 app.put('/markComplete', (request, response) => { //begin an http update method with the '/markComplete' route and set up request and response parameters
-    db.collection('todos').updateOne({thing: request.body.itemFromJS},{ //reach into the 'todos' collection and update one object when the item gets selected from the client side JS, filtering the body of the form entry 
+    db.collection('todos').updateOne({thing: request.body.itemFromJS},{ //reach into the 'todos' collection and update one object when the item gets selected from the client side JS, filtering the name of the todo span
         $set: { //select a key in the object
             completed: true //change the key value to true
           }
@@ -67,7 +67,7 @@ app.put('/markComplete', (request, response) => { //begin an http update method 
 })
 
 app.put('/markUnComplete', (request, response) => { //begin an http update method once the /markUnComplete route is passed and set up request/response parameters
-    db.collection('todos').updateOne({thing: request.body.itemFromJS},{ //reach into the 'todos' collection in the db and update one object when the item is clicked in the client side JS. Filter the body of the request
+    db.collection('todos').updateOne({thing: request.body.itemFromJS},{ //reach into the 'todos' collection in the db and update one object when the item is clicked in the client side JS. Filter by the name of the todo span
         $set: { //select a key in the object
             completed: false //change the complete key to false
           }
@@ -76,8 +76,8 @@ app.put('/markUnComplete', (request, response) => { //begin an http update metho
         upsert: false //do not insert object if the object doesnt already exist
     })
     .then(result => { //once the update is successful do the following
-        console.log('Marked Complete') //log to the console that the todo was marked again
-        response.json('Marked Complete') //responde to the cliens request with a json object telling them the todo was marked
+        console.log('Marked Uncomplete') //log to the console that the todo was marked again
+        response.json('Marked Uncomplete') //responde to the cliens request with a json object telling them the todo was marked
     })
     .catch(error => console.error(error)) //if there is an error pass the error to the conosle
 
